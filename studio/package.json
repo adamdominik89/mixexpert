@@ -8,11 +8,7 @@
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "deploy-graphql": "sanity graphql deploy",
-    "import": "tsx import-all-i18n.ts",
-    "import-full": "tsx full-migration-7lang.ts",
-    "cleanup": "tsx cleanup-language-field.ts",
-    "link-images": "tsx link-category-images-i18n.ts"
+    "deploy-graphql": "sanity graphql deploy"
   },
   "keywords": [
     "sanity"
