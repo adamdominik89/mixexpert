@@ -27,7 +27,7 @@ export async function getHomePage(language: Language) {
     slug,
     hero,
     aboutSection,
-    offerTitle,
+    "offerTitle": offerTitle.${language},
     categoryCards[]{
       "title": title.${language},
       description,
@@ -45,7 +45,7 @@ export async function getHomePage(language: Language) {
 export async function getOfferPage(language: Language) {
   const query = `*[_type == "offerPage"][0]{
     _id,
-    title,
+    "title": title.${language},
     slug,
     description,
     categoryCards[]{
@@ -65,7 +65,7 @@ export async function getOfferPage(language: Language) {
 export async function getContactPage(language: Language) {
   const query = `*[_type == "contactPage"][0]{
     _id,
-    title,
+    "title": title.${language},
     slug,
     companyName,
     headquartersLabel,

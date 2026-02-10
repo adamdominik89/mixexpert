@@ -140,8 +140,8 @@ async function main() {
     order: i,
   }))
 
-  // Step 5: Create main documents
-  console.log('\n📍 STEP 5: Creating main documents...')
+  // Step 5: Create main documents with i18n
+  console.log('\n📍 STEP 5: Creating main documents with i18n...')
   
   await client.createOrReplace({
     _id: 'siteSettings-main',
@@ -170,26 +170,53 @@ async function main() {
       title: 'Mix Expert',
       subtitle: 'Producent wafli do lodów od 1985r.',
     },
-    offerTitle: 'Nasza oferta',
+    offerTitle: {
+      _type: 'localizedString',
+      pl: 'Nasza oferta',
+      en: 'Our Offer',
+      de: 'Unser Angebot',
+      fr: 'Notre Offre',
+      pt: 'Nossa Oferta',
+      ru: 'Наше предложение',
+      zh: '我们的产品',
+    },
     categoryCards,
   })
-  console.log('✅ Homepage')
+  console.log('✅ Homepage with i18n')
 
   await client.createOrReplace({
     _id: 'offerPage-main',
     _type: 'offerPage',
     language: 'pl',
-    title: 'Oferta',
+    title: {
+      _type: 'localizedString',
+      pl: 'Oferta',
+      en: 'Offer',
+      de: 'Angebot',
+      fr: 'Offre',
+      pt: 'Oferta',
+      ru: 'Предложение',
+      zh: '产品',
+    },
     slug: {_type: 'slug', current: 'oferta'},
     categoryCards,
   })
-  console.log('✅ Offer page')
+  console.log('✅ Offer page with i18n')
 
   await client.createOrReplace({
     _id: 'contactPage-main',
     _type: 'contactPage',
     language: 'pl',
-    title: 'Kontakt',
+    title: {
+      _type: 'localizedString',
+      pl: 'Kontakt',
+      en: 'Contact',
+      de: 'Kontakt',
+      fr: 'Contact',
+      pt: 'Contato',
+      ru: 'Контакт',
+      zh: '联系我们',
+    },
     slug: {_type: 'slug', current: 'kontakt'},
     companyName: 'Mix Expert',
     headquartersLabel: 'Siedziba Firmy:',
@@ -201,7 +228,7 @@ async function main() {
       {_key: 'p2', name: 'Adam Dominik', department: 'Dział Handlowy'},
     ],
   })
-  console.log('✅ Contact page')
+  console.log('✅ Contact page with i18n')
 
   // Step 6: Create partners
   console.log('\n📍 STEP 6: Creating partners...')

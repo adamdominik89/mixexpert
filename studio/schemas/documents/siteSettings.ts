@@ -50,7 +50,6 @@ export default defineType({
         {
           type: 'object',
           fields: [
-            {name: '_key', type: 'string', hidden: true},
             {name: 'label', type: 'string', title: 'Label'},
             {name: 'href', type: 'string', title: 'Link'},
           ],

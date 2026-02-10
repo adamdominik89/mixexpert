@@ -54,6 +54,31 @@ const siteSettings = defineType({
     defineField({name: 'logo', type: 'imageWithAlt'}),
     defineField({name: 'phone', type: 'string'}),
     defineField({name: 'email', type: 'string'}),
+    defineField({
+      name: 'navigationItems',
+      type: 'array',
+      of: [{
+        type: 'object',
+        fields: [
+          {name: 'label', type: 'string', title: 'Label'},
+          {name: 'href', type: 'string', title: 'Link'},
+        ],
+      }],
+    }),
+    defineField({name: 'brandsTitle', type: 'string'}),
+    defineField({name: 'partnersTitle', type: 'string'}),
+  ],
+})
+
+const categoryCard = defineType({
+  name: 'categoryCard',
+  type: 'object',
+  fields: [
+    defineField({name: 'title', type: 'localizedString'}),
+    defineField({name: 'description', type: 'string'}),
+    defineField({name: 'image', type: 'imageWithAlt'}),
+    defineField({name: 'link', type: 'string'}),
+    defineField({name: 'order', type: 'number'}),
   ],
 })
 
@@ -63,7 +88,12 @@ const homePage = defineType({
   fields: [
     defineField({name: 'title', type: 'string'}),
     defineField({name: 'slug', type: 'slug'}),
-    defineField({name: 'offerTitle', type: 'string'}),
+    defineField({name: 'hero', type: 'object', fields: [
+      {name: 'title', type: 'string'},
+      {name: 'subtitle', type: 'string'},
+    ]}),
+    defineField({name: 'offerTitle', type: 'localizedString'}),
+    defineField({name: 'categoryCards', type: 'array', of: [{type: 'categoryCard'}]}),
   ],
 })
 
@@ -71,8 +101,20 @@ const offerPage = defineType({
   name: 'offerPage',
   type: 'document',
   fields: [
-    defineField({name: 'title', type: 'string'}),
+    defineField({name: 'title', type: 'localizedString'}),
     defineField({name: 'slug', type: 'slug'}),
+    defineField({name: 'categoryCards', type: 'array', of: [{type: 'categoryCard'}]}),
+  ],
+})
+
+const contactPerson = defineType({
+  name: 'contactPerson',
+  type: 'object',
+  fields: [
+    defineField({name: 'name', type: 'string'}),
+    defineField({name: 'department', type: 'string'}),
+    defineField({name: 'phone', type: 'string'}),
+    defineField({name: 'email', type: 'string'}),
   ],
 })
 
@@ -80,17 +122,27 @@ const contactPage = defineType({
   name: 'contactPage',
   type: 'document',
   fields: [
-    defineField({name: 'title', type: 'string'}),
+    defineField({name: 'title', type: 'localizedString'}),
     defineField({name: 'slug', type: 'slug'}),
     defineField({name: 'companyName', type: 'string'}),
+    defineField({name: 'headquartersLabel', type: 'string'}),
+    defineField({name: 'address', type: 'object', fields: [
+      {name: 'street', type: 'string'},
+      {name: 'postalCode', type: 'string'},
+      {name: 'city', type: 'string'},
+      {name: 'country', type: 'string'},
+    ]}),
     defineField({name: 'phone', type: 'string'}),
     defineField({name: 'email', type: 'string'}),
+    defineField({name: 'contactPersons', type: 'array', of: [{type: 'contactPerson'}]}),
   ],
 })
 
 export const schemaTypes = [
   imageWithAlt,
   localizedString,
+  categoryCard,
+  contactPerson,
   productCategory,
   partner,
   siteSettings,
