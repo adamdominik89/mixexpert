@@ -1,0 +1,105 @@
+{
+  "siteSettings": {
+    "pl": {
+      "_type": "siteSettings",
+      "_id": "siteSettings-pl",
+      "language": "pl",
+      "siteName": "Mix Expert",
+      "siteDescription": "Producent wafli do lodów, koncentratów spożywczych, gofrów w proszku",
+      "phone": "+48 663 902 452",
+      "email": "biuro@mixexpert.com.pl",
+      "navigationItems": [
+        {"label": "O nas", "href": "/"},
+        {"label": "Oferta", "href": "/oferta"},
+        {"label": "Kontakt", "href": "/kontakt"}
+      ],
+      "brandsTitle": "Nasze marki:",
+      "partnersTitle": "Nasi Partnerzy:",
+      "footerText": "Mix Expert - Producent koncentratów spożywczych od 1985 roku"
+    },
+    "en": {
+      "_type": "siteSettings",
+      "_id": "siteSettings-en",
+      "language": "en",
+      "siteName": "Mix Expert",
+      "siteDescription": "Ice cream cone manufacturer, food concentrates, waffle mix producer",
+      "phone": "+48 663 902 452",
+      "email": "biuro@mixexpert.com.pl",
+      "navigationItems": [
+        {"label": "About", "href": "/"},
+        {"label": "Offer", "href": "/oferta"},
+        {"label": "Contact", "href": "/kontakt"}
+      ],
+      "brandsTitle": "Our Brands:",
+      "partnersTitle": "Our Partners:",
+      "footerText": "Mix Expert - Food concentrate manufacturer since 1985"
+    },
+    "de": {
+      "_type": "siteSettings",
+      "_id": "siteSettings-de",
+      "language": "de",
+      "siteName": "Mix Expert",
+      "siteDescription": "Eiswaffelhersteller, Lebensmittelkonzentrate, Waffelmischungshersteller",
+      "phone": "+48 663 902 452",
+      "email": "biuro@mixexpert.com.pl",
+      "navigationItems": [
+        {"label": "Über uns", "href": "/"},
+        {"label": "Angebot", "href": "/oferta"},
+        {"label": "Kontakt", "href": "/kontakt"}
+      ],
+      "brandsTitle": "Unsere Marken:",
+      "partnersTitle": "Unsere Partner:",
+      "footerText": "Mix Expert - Hersteller von Lebensmittelkonzentraten seit 1985"
+    }
+  },
+  "categories": [
+    {
+      "categoryId": "concentrates",
+      "order": 0,
+      "pl": {
+        "title": "Koncentraty spożywcze, mieszanki ciast i gofrów",
+        "slug": "koncentraty-spozywcze"
+      },
+      "en": {
+        "title": "Food concentrates, cake and waffle mixes",
+        "slug": "food-concentrates"
+      },
+      "de": {
+        "title": "Lebensmittelkonzentrate, Kuchen- und Waffelmischungen",
+        "slug": "lebensmittelkonzentrate"
+      }
+    },
+    {
+      "categoryId": "ice-cream-powder",
+      "order": 1,
+      "pl": {
+        "title": "Lody w proszku, proszek lodowy do automatów",
+        "slug": "lody-w-proszku"
+      },
+      "en": {
+        "title": "Ice cream powder mixes",
+        "slug": "ice-cream-powder"
+      },
+      "de": {
+        "title": "Eispulvermischungen",
+        "slug": "eispulver"
+      }
+    },
+    {
+      "categoryId": "wafer-cones",
+      "order": 2,
+      "pl": {
+        "title": "Wafle do lodów i deserów",
+        "slug": "wafle-do-lodow"
+      },
+      "en": {
+        "title": "Wafer cones for ice cream and desserts",
+        "slug": "wafer-cones"
+      },
+      "de": {
+        "title": "Waffeltüten für Eis und Desserts",
+        "slug": "waffeltuten"
+      }
+    }
+  ]
+}
