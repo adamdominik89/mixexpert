@@ -4,7 +4,7 @@ const client = createClient({
   projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'y0cdogbw',
   dataset: process.env.SANITY_STUDIO_DATASET || 'production',
   useCdn: false,
-  token: process.env.SANITY_IMPORT_TOKEN,
+  token: process.env.SANITY_API_TOKEN || process.env.SANITY_IMPORT_TOKEN,
   apiVersion: '2024-01-01',
 })
 

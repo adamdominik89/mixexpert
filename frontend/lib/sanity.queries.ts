@@ -25,15 +25,18 @@ export async function getHomePage(language: Language) {
     _id,
     title,
     slug,
-    hero,
-    aboutSection,
-    "offerTitle": offerTitle.${language},
-    categoryCards[]{
+    sections[]{
+      _type,
+      _key,
       "title": title.${language},
-      description,
-      image,
-      link,
-      order
+      "subtitle": subtitle.${language},
+      backgroundImage,
+      "ctaText": ctaText.${language},
+      ctaLink,
+      "heading": heading.${language},
+      "subheading": subheading.${language},
+      "content": content.${language},
+      alignment
     },
     seo
   }`
@@ -47,13 +50,11 @@ export async function getOfferPage(language: Language) {
     _id,
     "title": title.${language},
     slug,
-    description,
-    categoryCards[]{
-      "title": title.${language},
-      description,
-      image,
-      link,
-      order
+    sections[]{
+      _type,
+      _key,
+      "heading": heading.${language},
+      showCategories
     },
     seo
   }`

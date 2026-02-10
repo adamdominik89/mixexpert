@@ -1,5 +1,6 @@
 // Minimal schema set for debugging
 import {defineType, defineField} from 'sanity'
+import {textSection, heroSection, categoryGridSection} from './sections'
 
 const imageWithAlt = defineType({
   name: 'imageWithAlt',
@@ -12,29 +13,31 @@ const imageWithAlt = defineType({
 
 const localizedString = defineType({
   name: 'localizedString',
+  title: 'Localized String',
   type: 'object',
   fields: [
-    defineField({name: 'pl', title: '🇵🇱 PL', type: 'string'}),
-    defineField({name: 'en', title: '🇬🇧 EN', type: 'string'}),
-    defineField({name: 'de', title: '🇩🇪 DE', type: 'string'}),
-    defineField({name: 'fr', title: '🇫🇷 FR', type: 'string'}),
-    defineField({name: 'pt', title: '🇵🇹 PT', type: 'string'}),
-    defineField({name: 'ru', title: '🇷🇺 RU', type: 'string'}),
-    defineField({name: 'zh', title: '🇨🇳 ZH', type: 'string'}),
+    defineField({name: 'pl', title: '🇵🇱 Polski (Polish)', type: 'string'}),
+    defineField({name: 'en', title: '🇬🇧 English', type: 'string'}),
+    defineField({name: 'de', title: '🇩🇪 Deutsch (German)', type: 'string'}),
+    defineField({name: 'fr', title: '🇫🇷 Français (French)', type: 'string'}),
+    defineField({name: 'pt', title: '🇵🇹 Português (Portuguese)', type: 'string'}),
+    defineField({name: 'ru', title: '🇷🇺 Русский (Russian)', type: 'string'}),
+    defineField({name: 'zh', title: '🇨🇳 中文 (Chinese)', type: 'string'}),
   ],
 })
 
 const localizedRichText = defineType({
   name: 'localizedRichText',
+  title: 'Localized Rich Text',
   type: 'object',
   fields: [
-    defineField({name: 'pl', title: '🇵🇱 PL', type: 'array', of: [{type: 'block'}]}),
-    defineField({name: 'en', title: '🇬🇧 EN', type: 'array', of: [{type: 'block'}]}),
-    defineField({name: 'de', title: '🇩🇪 DE', type: 'array', of: [{type: 'block'}]}),
-    defineField({name: 'fr', title: '🇫🇷 FR', type: 'array', of: [{type: 'block'}]}),
-    defineField({name: 'pt', title: '🇵🇹 PT', type: 'array', of: [{type: 'block'}]}),
-    defineField({name: 'ru', title: '🇷🇺 RU', type: 'array', of: [{type: 'block'}]}),
-    defineField({name: 'zh', title: '🇨🇳 ZH', type: 'array', of: [{type: 'block'}]}),
+    defineField({name: 'pl', title: '🇵🇱 Polski (Polish)', type: 'array', of: [{type: 'block'}]}),
+    defineField({name: 'en', title: '🇬🇧 English', type: 'array', of: [{type: 'block'}]}),
+    defineField({name: 'de', title: '🇩🇪 Deutsch (German)', type: 'array', of: [{type: 'block'}]}),
+    defineField({name: 'fr', title: '🇫🇷 Français (French)', type: 'array', of: [{type: 'block'}]}),
+    defineField({name: 'pt', title: '🇵🇹 Português (Portuguese)', type: 'array', of: [{type: 'block'}]}),
+    defineField({name: 'ru', title: '🇷🇺 Русский (Russian)', type: 'array', of: [{type: 'block'}]}),
+    defineField({name: 'zh', title: '🇨🇳 中文 (Chinese)', type: 'array', of: [{type: 'block'}]}),
   ],
 })
 
@@ -101,25 +104,48 @@ const homePage = defineType({
   name: 'homePage',
   type: 'document',
   fields: [
-    defineField({name: 'title', type: 'string'}),
-    defineField({name: 'slug', type: 'slug'}),
-    defineField({name: 'hero', type: 'object', fields: [
-      {name: 'title', type: 'string'},
-      {name: 'subtitle', type: 'string'},
-    ]}),
-    defineField({name: 'offerTitle', type: 'localizedString'}),
-    defineField({name: 'categoryCards', type: 'array', of: [{type: 'categoryCard'}]}),
+    defineField({name: 'title', type: 'string', title: 'Page Title'}),
+    defineField({name: 'slug', type: 'slug', title: 'Slug'}),
+    defineField({
+      name: 'sections',
+      title: 'Page Sections',
+      type: 'array',
+      of: [
+        {type: 'heroSection'},
+        {type: 'textSection'},
+      ],
+    }),
   ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {
+      return {title: title || 'Homepage'}
+    },
+  },
 })
 
 const offerPage = defineType({
   name: 'offerPage',
   type: 'document',
   fields: [
-    defineField({name: 'title', type: 'localizedString'}),
-    defineField({name: 'slug', type: 'slug'}),
-    defineField({name: 'categoryCards', type: 'array', of: [{type: 'categoryCard'}]}),
+    defineField({name: 'title', type: 'localizedString', title: 'Page Title'}),
+    defineField({name: 'slug', type: 'slug', title: 'Slug'}),
+    defineField({
+      name: 'sections',
+      title: 'Page Sections',
+      type: 'array',
+      of: [
+        {type: 'textSection'},
+        {type: 'categoryGridSection'},
+      ],
+    }),
   ],
+  preview: {
+    select: {titlePl: 'title.pl', titleEn: 'title.en'},
+    prepare({titlePl, titleEn}) {
+      return {title: titlePl || titleEn || 'Offer Page'}
+    },
+  },
 })
 
 const contactPerson = defineType({
@@ -154,11 +180,21 @@ const contactPage = defineType({
 })
 
 export const schemaTypes = [
+  // Basic types
   imageWithAlt,
   localizedString,
   localizedRichText,
+  
+  // Sections
+  textSection,
+  heroSection,
+  categoryGridSection,
+  
+  // Objects
   categoryCard,
   contactPerson,
+  
+  // Documents
   productCategory,
   partner,
   siteSettings,
