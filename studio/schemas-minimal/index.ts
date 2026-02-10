@@ -24,15 +24,30 @@ const localizedString = defineType({
   ],
 })
 
+const localizedRichText = defineType({
+  name: 'localizedRichText',
+  type: 'object',
+  fields: [
+    defineField({name: 'pl', title: '🇵🇱 PL', type: 'array', of: [{type: 'block'}]}),
+    defineField({name: 'en', title: '🇬🇧 EN', type: 'array', of: [{type: 'block'}]}),
+    defineField({name: 'de', title: '🇩🇪 DE', type: 'array', of: [{type: 'block'}]}),
+    defineField({name: 'fr', title: '🇫🇷 FR', type: 'array', of: [{type: 'block'}]}),
+    defineField({name: 'pt', title: '🇵🇹 PT', type: 'array', of: [{type: 'block'}]}),
+    defineField({name: 'ru', title: '🇷🇺 RU', type: 'array', of: [{type: 'block'}]}),
+    defineField({name: 'zh', title: '🇨🇳 ZH', type: 'array', of: [{type: 'block'}]}),
+  ],
+})
+
 const productCategory = defineType({
   name: 'productCategory',
   type: 'document',
   fields: [
-    defineField({name: 'categoryId', type: 'string'}),
-    defineField({name: 'title', type: 'localizedString'}),
-    defineField({name: 'slug', type: 'slug'}),
-    defineField({name: 'icon', type: 'imageWithAlt'}),
-    defineField({name: 'order', type: 'number'}),
+    defineField({name: 'categoryId', type: 'string', title: 'Category ID'}),
+    defineField({name: 'title', type: 'localizedString', title: 'Title'}),
+    defineField({name: 'slug', type: 'slug', title: 'Slug'}),
+    defineField({name: 'description', type: 'localizedRichText', title: 'Description'}),
+    defineField({name: 'icon', type: 'imageWithAlt', title: 'Icon'}),
+    defineField({name: 'order', type: 'number', title: 'Order'}),
   ],
 })
 
@@ -50,10 +65,10 @@ const siteSettings = defineType({
   name: 'siteSettings',
   type: 'document',
   fields: [
-    defineField({name: 'siteName', type: 'string'}),
-    defineField({name: 'logo', type: 'imageWithAlt'}),
-    defineField({name: 'phone', type: 'string'}),
-    defineField({name: 'email', type: 'string'}),
+    defineField({name: 'siteName', type: 'string', title: 'Site Name'}),
+    defineField({name: 'logo', type: 'imageWithAlt', title: 'Logo'}),
+    defineField({name: 'phone', type: 'string', title: 'Phone'}),
+    defineField({name: 'email', type: 'string', title: 'Email'}),
     defineField({
       name: 'navigationItems',
       type: 'array',
@@ -141,6 +156,7 @@ const contactPage = defineType({
 export const schemaTypes = [
   imageWithAlt,
   localizedString,
+  localizedRichText,
   categoryCard,
   contactPerson,
   productCategory,
