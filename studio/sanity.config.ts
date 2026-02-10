@@ -1,8 +1,7 @@
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
-import {schemaTypes} from './schemas'
-import {structure} from './structure'
+import {schemaTypes} from './schemas-minimal'
 
 export default defineConfig({
   name: 'default',
@@ -12,9 +11,7 @@ export default defineConfig({
   dataset: process.env.SANITY_STUDIO_DATASET || 'production',
 
   plugins: [
-    structureTool({
-      structure,
-    }),
+    structureTool(),
     visionTool(),
   ],
 

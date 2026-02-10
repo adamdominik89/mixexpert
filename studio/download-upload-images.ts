@@ -4,8 +4,8 @@ import http from 'http'
 import {URL} from 'url'
 
 const client = createClient({
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'q3ncxqvm',
-  dataset: process.env.SANITY_STUDIO_DATASET || 'test',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'y0cdogbw',
+  dataset: process.env.SANITY_STUDIO_DATASET || 'production',
   useCdn: false,
   token: process.env.SANITY_IMPORT_TOKEN,
   apiVersion: '2024-01-01',
@@ -55,44 +55,10 @@ async function main() {
     'logo.png'
   )
 
-  // Update site settings with logo
+  // Update site settings with logo (i18n version)
   if (logoAsset) {
     await client
-      .patch('siteSettings-pl')
-      .set({
-        logo: {
-          _type: 'imageWithAlt',
-          image: {
-            _type: 'image',
-            asset: {
-              _type: 'reference',
-              _ref: logoAsset._id,
-            },
-          },
-          alt: 'Mix Expert Logo',
-        },
-      })
-      .commit()
-
-    await client
-      .patch('siteSettings-en')
-      .set({
-        logo: {
-          _type: 'imageWithAlt',
-          image: {
-            _type: 'image',
-            asset: {
-              _type: 'reference',
-              _ref: logoAsset._id,
-            },
-          },
-          alt: 'Mix Expert Logo',
-        },
-      })
-      .commit()
-
-    await client
-      .patch('siteSettings-de')
+      .patch('siteSettings-main')
       .set({
         logo: {
           _type: 'imageWithAlt',
@@ -136,67 +102,7 @@ async function main() {
     }
   }
 
-  // Download brand images
-  const drgfLogoAsset = await downloadAndUploadImage(
-    'http://www.mixexpert.com.pl/images/drgf-logo.png',
-    'drgf-logo.png'
-  )
-
-  if (drgfLogoAsset) {
-    // Update Dr. GF brand with logo
-    await client
-      .patch('brand-drgf-pl')
-      .set({
-        logo: {
-          _type: 'imageWithAlt',
-          image: {
-            _type: 'image',
-            asset: {
-              _type: 'reference',
-              _ref: drgfLogoAsset._id,
-            },
-          },
-          alt: 'Dr. GF Logo',
-        },
-      })
-      .commit()
-
-    await client
-      .patch('brand-drgf-en')
-      .set({
-        logo: {
-          _type: 'imageWithAlt',
-          image: {
-            _type: 'image',
-            asset: {
-              _type: 'reference',
-              _ref: drgfLogoAsset._id,
-            },
-          },
-          alt: 'Dr. GF Logo',
-        },
-      })
-      .commit()
-
-    await client
-      .patch('brand-drgf-de')
-      .set({
-        logo: {
-          _type: 'imageWithAlt',
-          image: {
-            _type: 'image',
-            asset: {
-              _type: 'reference',
-              _ref: drgfLogoAsset._id,
-            },
-          },
-          alt: 'Dr. GF Logo',
-        },
-      })
-      .commit()
-
-    console.log('✅ Dr. GF logo updated!')
-  }
+  console.log('✅ Brand logos will be added when brand documents are created')
 
   // Download partner logos
   const partnerImages = [

@@ -9,7 +9,6 @@ export default defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'subtitle',
@@ -19,13 +18,14 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'richText',
-      validation: (Rule) => Rule.required(),
+      type: 'array',
+      of: [{type: 'block'}],
     }),
     defineField({
       name: 'additionalContent',
       title: 'Additional Content',
-      type: 'richText',
+      type: 'array',
+      of: [{type: 'block'}],
     }),
     defineField({
       name: 'ctaText',

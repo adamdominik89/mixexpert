@@ -1,11 +1,9 @@
 import { client } from './sanity.client'
-
-// Language type
-export type Language = 'pl' | 'en' | 'de'
+import { Language } from './languages'
 
 // Get site settings by language
 export async function getSiteSettings(language: Language) {
-  const query = `*[_type == "siteSettings" && language == $language][0]{
+  const query = `*[_type == "siteSettings"][0]{
     _id,
     siteName,
     siteDescription,
@@ -18,98 +16,54 @@ export async function getSiteSettings(language: Language) {
     footerText
   }`
   
-  return client.fetch(query, { language })
+  return client.fetch(query)
 }
 
 // Get home page by language
 export async function getHomePage(language: Language) {
-  const query = `*[_type == "homePage" && language == $language][0]{
+  const query = `*[_type == "homePage"][0]{
     _id,
     title,
     slug,
-    hero{
-      title,
-      subtitle,
-      backgroundImage{
-        image{
-          asset->{
-            _id,
-            url
-          }
-        },
-        alt
-      }
-    },
-    aboutSection{
-      title,
-      subtitle,
-      description,
-      additionalContent,
-      ctaText,
-      ctaLink,
-      image{
-        image{
-          asset->{
-            _id,
-            url
-          }
-        },
-        alt
-      }
-    },
+    hero,
+    aboutSection,
     offerTitle,
     categoryCards[]{
-      title,
+      "title": title.${language},
       description,
-      image{
-        image{
-          asset->{
-            _id,
-            url
-          }
-        },
-        alt
-      },
+      image,
       link,
       order
     },
     seo
   }`
   
-  return client.fetch(query, { language })
+  return client.fetch(query)
 }
 
 // Get offer page by language
 export async function getOfferPage(language: Language) {
-  const query = `*[_type == "offerPage" && language == $language][0]{
+  const query = `*[_type == "offerPage"][0]{
     _id,
     title,
     slug,
     description,
     categoryCards[]{
-      title,
+      "title": title.${language},
       description,
-      image{
-        image{
-          asset->{
-            _id,
-            url
-          }
-        },
-        alt
-      },
+      image,
       link,
       order
     },
     seo
   }`
   
-  return client.fetch(query, { language })
+  return client.fetch(query)
 }
 
 // Get contact page by language
 export async function getContactPage(language: Language) {
-  const query = `*[_type == "contactPage" && language == $language][0]{
+  const query = `*[_type == "contactPage"][0]{
     _id,
     title,
     slug,
@@ -120,37 +74,21 @@ export async function getContactPage(language: Language) {
     phone,
     administrationLabel,
     salesDepartmentLabel,
-    contactPersons[]{
-      name,
-      role,
-      department,
-      email,
-      phone,
-      photo{
-        image{
-          asset->{
-            _id,
-            url
-          }
-        },
-        alt
-      },
-      languageFlags
-    },
+    contactPersons,
     seo
   }`
   
-  return client.fetch(query, { language })
+  return client.fetch(query)
 }
 
 // Get all product categories by language
 export async function getProductCategories(language: Language) {
-  const query = `*[_type == "productCategory" && language == $language] | order(order asc){
+  const query = `*[_type == "productCategory"] | order(order asc){
     _id,
     categoryId,
-    title,
+    "title": title.${language},
     slug,
-    description,
+    "description": description.${language},
     headerImage{
       image{
         asset->{
@@ -172,17 +110,17 @@ export async function getProductCategories(language: Language) {
     order
   }`
   
-  return client.fetch(query, { language })
+  return client.fetch(query)
 }
 
 // Get product category by slug
 export async function getProductCategoryBySlug(slug: string, language: Language) {
-  const query = `*[_type == "productCategory" && slug.current == $slug && language == $language][0]{
+  const query = `*[_type == "productCategory" && slug.current == $slug][0]{
     _id,
     categoryId,
-    title,
+    "title": title.${language},
     slug,
-    description,
+    "description": description.${language},
     headerImage{
       image{
         asset->{
@@ -193,8 +131,8 @@ export async function getProductCategoryBySlug(slug: string, language: Language)
       alt
     },
     subcategories[]{
-      title,
-      description,
+      "title": title.${language},
+      "description": description.${language},
       image{
         image{
           asset->{
@@ -235,33 +173,29 @@ export async function getProductCategoryBySlug(slug: string, language: Language)
       isGlutenFree,
       isFeatured
     },
-    seo
+    "seo": {
+      "metaTitle": seo.metaTitle.${language},
+      "metaDescription": seo.metaDescription.${language},
+      "ogImage": seo.ogImage
+    }
   }`
   
-  return client.fetch(query, { slug, language })
+  return client.fetch(query, { slug })
 }
 
 // Get brands by language
 export async function getBrands(language: Language) {
-  const query = `*[_type == "brand" && language == $language] | order(order asc){
+  const query = `*[_type == "brand"] | order(order asc){
     _id,
     brandId,
     name,
-    logo{
-      image{
-        asset->{
-          _id,
-          url
-        }
-      },
-      alt
-    },
+    logo,
     description,
     website,
     order
   }`
   
-  return client.fetch(query, { language })
+  return client.fetch(query)
 }
 
 // Get all partners (no language filter)

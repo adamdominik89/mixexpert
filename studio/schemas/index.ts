@@ -19,6 +19,9 @@ import imageWithAlt from './objects/imageWithAlt'
 import link from './objects/link'
 import feature from './objects/feature'
 import specification from './objects/specification'
+import localizedString from './objects/localizedString'
+import localizedText from './objects/localizedText'
+import localizedRichText from './objects/localizedRichText'
 
 export const schemaTypes = [
   // Documents
@@ -42,4 +45,7 @@ export const schemaTypes = [
   link,
   feature,
   specification,
+  localizedString,
+  localizedText,
+  localizedRichText,
 ]

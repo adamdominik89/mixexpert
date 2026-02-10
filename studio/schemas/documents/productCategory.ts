@@ -9,29 +9,21 @@ export default defineType({
   fields: [
     defineField({
       name: 'language',
-      title: 'Language',
       type: 'string',
-      options: {
-        list: [
-          {title: 'Polish', value: 'pl'},
-          {title: 'English', value: 'en'},
-          {title: 'German', value: 'de'},
-        ],
-        layout: 'radio',
-      },
-      validation: (Rule) => Rule.required(),
+      readOnly: true,
+      hidden: true,
     }),
     defineField({
       name: 'categoryId',
       title: 'Category ID',
       type: 'string',
-      description: 'Unique identifier for this category (same across all languages)',
+      description: 'Unique identifier for this category',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'title',
       title: 'Category Title',
-      type: 'string',
+      type: 'localizedString',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -39,7 +31,7 @@ export default defineType({
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'title',
+        source: 'categoryId',
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
@@ -47,7 +39,7 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'richText',
+      type: 'localizedRichText',
     }),
     defineField({
       name: 'headerImage',
@@ -75,8 +67,8 @@ export default defineType({
         {
           type: 'object',
           fields: [
-            {name: 'title', type: 'string', title: 'Subcategory Title'},
-            {name: 'description', type: 'text', title: 'Description'},
+            {name: 'title', type: 'localizedString', title: 'Subcategory Title'},
+            {name: 'description', type: 'localizedText', title: 'Description'},
             {name: 'image', type: 'imageWithAlt', title: 'Image'},
           ],
         },
@@ -89,27 +81,26 @@ export default defineType({
       of: [{type: 'feature'}],
     }),
     defineField({
-      name: 'products',
-      title: 'Products',
-      type: 'array',
-      of: [{type: 'reference', to: [{type: 'product'}]}],
-    }),
-    defineField({
       name: 'seo',
       title: 'SEO',
-      type: 'seo',
+      type: 'object',
+      fields: [
+        {name: 'metaTitle', type: 'localizedString', title: 'Meta Title'},
+        {name: 'metaDescription', type: 'localizedText', title: 'Meta Description'},
+        {name: 'ogImage', type: 'imageWithAlt', title: 'Open Graph Image'},
+      ],
     }),
   ],
   preview: {
     select: {
-      title: 'title',
-      language: 'language',
+      titlePl: 'title.pl',
+      titleEn: 'title.en',
       media: 'icon.image',
     },
-    prepare({title, language, media}) {
+    prepare({titlePl, titleEn, media}) {
       return {
-        title: title,
-        subtitle: `${language.toUpperCase()} Category`,
+        title: titlePl || titleEn || 'Untitled',
+        subtitle: 'Product Category',
         media,
       }
     },

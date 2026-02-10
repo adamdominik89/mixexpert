@@ -8,7 +8,7 @@ export default defineType({
     defineField({
       name: 'title',
       title: 'Title',
-      type: 'string',
+      type: 'localizedString',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -21,20 +21,12 @@ export default defineType({
       name: 'image',
       title: 'Image',
       type: 'imageWithAlt',
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'link',
       title: 'Link',
       type: 'string',
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'categoryReference',
-      title: 'Category Reference',
-      type: 'reference',
-      to: [{type: 'productCategory'}],
-      description: 'Optional: Link to a product category',
     }),
     defineField({
       name: 'order',
@@ -45,8 +37,15 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'title',
+      titlePl: 'title.pl',
+      titleEn: 'title.en',
       media: 'image.image',
+    },
+    prepare({titlePl, titleEn, media}) {
+      return {
+        title: titlePl || titleEn || 'Untitled',
+        media,
+      }
     },
   },
 })

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const languages = ['pl', 'en', 'de']
+const languages = ['pl', 'en', 'de', 'fr', 'pt', 'ru', 'zh']
 const defaultLanguage = 'pl'
 
 export function middleware(request: NextRequest) {

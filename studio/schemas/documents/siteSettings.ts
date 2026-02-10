@@ -9,17 +9,9 @@ export default defineType({
   fields: [
     defineField({
       name: 'language',
-      title: 'Language',
       type: 'string',
-      options: {
-        list: [
-          {title: 'Polish', value: 'pl'},
-          {title: 'English', value: 'en'},
-          {title: 'German', value: 'de'},
-        ],
-        layout: 'radio',
-      },
-      validation: (Rule) => Rule.required(),
+      readOnly: true,
+      hidden: true,
     }),
     defineField({
       name: 'siteName',
@@ -58,8 +50,9 @@ export default defineType({
         {
           type: 'object',
           fields: [
-            {name: 'label', type: 'string', title: 'Label', validation: (Rule: any) => Rule.required()},
-            {name: 'href', type: 'string', title: 'Link', validation: (Rule: any) => Rule.required()},
+            {name: '_key', type: 'string', hidden: true},
+            {name: 'label', type: 'string', title: 'Label'},
+            {name: 'href', type: 'string', title: 'Link'},
           ],
         },
       ],
@@ -83,13 +76,6 @@ export default defineType({
   preview: {
     select: {
       title: 'siteName',
-      language: 'language',
-    },
-    prepare({title, language}) {
-      return {
-        title: `Settings - ${title}`,
-        subtitle: language.toUpperCase(),
-      }
     },
   },
 })

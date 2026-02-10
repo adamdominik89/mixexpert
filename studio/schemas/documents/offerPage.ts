@@ -9,17 +9,9 @@ export default defineType({
   fields: [
     defineField({
       name: 'language',
-      title: 'Language',
       type: 'string',
-      options: {
-        list: [
-          {title: 'Polish', value: 'pl'},
-          {title: 'English', value: 'en'},
-          {title: 'German', value: 'de'},
-        ],
-        layout: 'radio',
-      },
-      validation: (Rule) => Rule.required(),
+      readOnly: true,
+      hidden: true,
     }),
     defineField({
       name: 'title',
@@ -31,10 +23,6 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -48,7 +36,6 @@ export default defineType({
       title: 'Category Cards',
       type: 'array',
       of: [{type: 'categoryCard'}],
-      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: 'seo',
@@ -59,13 +46,6 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      language: 'language',
-    },
-    prepare({title, language}) {
-      return {
-        title: `Offer - ${title}`,
-        subtitle: language.toUpperCase(),
-      }
     },
   },
 })
