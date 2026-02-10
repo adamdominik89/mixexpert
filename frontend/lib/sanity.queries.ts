@@ -82,36 +82,27 @@ export async function getContactPage(language: Language) {
   return client.fetch(query)
 }
 
-// Get all product categories by language
+// Get all product categories by language (formatted as CategoryCard for grid display)
 export async function getProductCategories(language: Language) {
   const query = `*[_type == "productCategory"] | order(order asc){
     _id,
     categoryId,
     "title": title.${language},
     slug,
-    "description": description.${language},
-    headerImage{
-      image{
-        asset->{
-          _id,
-          url
-        }
-      },
-      alt
-    },
-    icon{
-      image{
-        asset->{
-          _id,
-          url
-        }
-      },
-      alt
-    },
+    icon,
     order
   }`
   
-  return client.fetch(query)
+  const categories = await client.fetch(query)
+  
+  // Transform to CategoryCard format
+  return categories.map((cat: any) => ({
+    title: cat.title,
+    description: '', // Description not shown on cards
+    image: cat.icon,
+    link: `/kategoria/${cat.slug.current}`,
+    order: cat.order,
+  }))
 }
 
 // Get product category by slug
